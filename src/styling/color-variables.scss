@@ -1,0 +1,51 @@
+
+$brand-color: #145a3d;
+$brand-color-hover: #06250e;
+$white: #FFFFFF;
+$black: #000000;
+// background
+$background-1: #F5F6FA;
+$background-2: #ECF2FF;
+$background-3: #3FBCCE;
+$background-4: #FF9C00;
+$background-5: #FFC600;
+$background-6: #145a3d;
+$background-6-opacity: rgba(54,38,129,0.08);
+$background-6-hover: rgba(54,38,129,0.03);
+$background-7: #FBFBFB;
+
+// borders
+$border-1: #707070;
+$border-1-opacity: rgba(112,112,112, 0.24);
+$border-2: #003779;
+$border-3: #FCB300;
+$border-4: #C1C1C1;;
+$border-5: #EBEBEB;;
+
+//shadows
+$shadow-1: #00000029;
+
+// font-colors
+$font-color-1: #145a3d;
+$font-color-2: #707070;
+$font-color-2-opacity: rgba(112,112,112, 1);;
+$font-color-3: #454545;
+$font-color-4: #272D3B;
+$focus-font-label: rgba(24, 30, 77, 0.39);
+
+//states
+$stopped: #FF0000;
+$running: #67C621;
+$completed: #1084DC;
+$controlled: #FFC600;
+$maintenance: #8f8f8f;
+
+// Error
+$border-error: #FF0000;
+
+// Boostrap states
+$b-default: #0275D8;
+$b-warning: #f0AD4E;
+$b-info: #5BC0DE;
+$b-success: #5CB85C;
+$b-danger: #D9534F;

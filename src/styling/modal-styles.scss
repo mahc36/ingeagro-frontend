@@ -1,0 +1,60 @@
+@import "color-variables";
+@import "screen-variables";
+@import "mixins";
+@import "font-family";
+@import "buttons";
+
+.modal-content{
+  .modal-header{
+    @include flexbox;
+    @include justify-content(space-between);
+    @media (min-width: $desktop-extra-large) {
+      padding: 0 0 40px 0;
+      margin: 0 0 29px 0;
+    }
+    .modal-title{
+      @include nunito-bold;
+      color: $brand-color;
+      font-size: 24px;
+      line-height: 1;
+      @media (min-width: $desktop-extra-large) {
+        font-size: 30px;
+      }
+    }
+
+    .modal-close{
+      background-color: $white;
+      border: none;
+      &:before{
+        display: block;
+        content: ' ';
+        background-color: $white;
+        background-image: url('../assets/images/svg/close-modal.svg');
+        background-size: 20px 20px;
+        height: 20px;
+        width: 20px;
+        @media (min-width: $desktop-extra-large) {
+          background-size: 36px 36px;
+          height: 36px;
+          width: 36px;
+        }
+      }
+    }
+  }
+
+  .modal-body{
+    border: 1px solid $black;
+  }
+
+  .modal-footer{
+    @include flexbox;
+    @include justify-content(center);
+  }
+}
+
+
+.app-open-modal{
+  .modal-dialog-centered{
+    width: 500px;
+  }
+}

@@ -1,0 +1,18 @@
+@import "color-variables";
+
+.app-btn{
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5;
+  color: $white;
+  background-color: $background-6;
+  border: none;
+  padding: 5px 7px;
+  text-transform: none;
+  border-radius: 10px;
+
+  &:hover{
+    background-color: $brand-color-hover;
+    border-color: $brand-color-hover;
+  }
+}

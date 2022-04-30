@@ -1,0 +1,35 @@
+@font-face {
+  font-family: Nunito;
+  src: url("../assets/fonts/nunito-regular.woff") format("woff")
+}
+
+@font-face {
+  font-family: Nunito-bold;
+  src: url("../assets/fonts/nunito-bold.woff") format("woff")
+}
+
+@font-face {
+  font-family: Nunito-extra-bold;
+  src: url("../assets/fonts/nunito-extrabold.woff") format("woff")
+}
+
+@font-face {
+  font-family: Barlow-extralight;
+  src: url("../assets/fonts/barlow-extralight.woff") format("woff")
+}
+
+@mixin nunito-regular {
+  font-family: Nunito, 'sans-serif';
+}
+
+@mixin nunito-bold {
+  font-family: Nunito-bold, Nunito, 'sans-serif';
+}
+
+@mixin nunito-extra-bold {
+  font-family: Nunito-extra-bold, Nunito-bold, Nunito, 'sans-serif';
+}
+
+@mixin barlow-extra-light{
+  font-family: Barlow-extralight, 'sans-serif';
+}

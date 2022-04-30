@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <h4 class="modal-title">Registro de Usuario</h4>
+  <button type="button" class="modal-close" aria-label="Close" (click)="closeModal('Botón cerrar')">
+  </button>
+</div>
+<div class="modal-body">
+  <h5 class="message">Registro de Usuario</h5>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login-form">
+
+    <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+      <label for="firstName">Nombres</label>
+      <input type="text" class="form-control" formControlName="firstName"
+             id="firstName" aria-describedby="firstNameHelp" placeholder="Escribe tu nombre">
+      <small id="firstNameHelp" class="form-text text-muted">Escribe tu nombre o nombres</small>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+      <label for="lastName">Apellidos</label>
+      <input type="text" class="form-control" formControlName="lastName"
+             id="lastName"  placeholder="Escribe tus apellidos">
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.bornDate.errors }">
+      <label for="bornDate">Fecha de Nacimiento</label>
+      <input type="date" ngbDatepicker class="form-control" formControlName="bornDate"
+             id="bornDate"  placeholder="Fecha">
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.identificationType.errors }">
+      <label for="identificationType">Tipo de identifiaci&oacute;n</label>
+      <select class="form-control" id="identificationType" formControlName="identificationType">
+        <option value="1" selected>CC</option>
+        <option value="2">CE</option>
+        <option value="3">NIT</option>
+      </select>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.identificationNumber.errors }">
+      <label for="identificationNumber">N&uacute;mero de identificaci&oacute;n</label>
+      <input type="text" class="form-control" formControlName="identificationNumber"
+             id="identificationNumber"  placeholder="Número de identificación">
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+      <label for="gender">Genero</label>
+      <select class="form-control" id="gender" formControlName="gender">
+        <option value="1" selected>Hombre</option>
+        <option value="2">Mujer</option>
+        <option value="3">NA</option>
+      </select>
+    </div>
+
+  </form>
+
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="app-btn cancel" (click)="closeModal('click en cerrar')">Cancelar</button>
+  <button type="button" class="app-btn logout" (click)="onSubmit()">Aceptar</button>
+</div>
