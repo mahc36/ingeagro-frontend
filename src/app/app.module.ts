@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserModule } from "./user/user.module";
 import { ShareModule } from "./shared/share.module";
 import { HttpClientModule } from "@angular/common/http";
+import { AuthModule } from "./auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from "@angular/common/http";
     NgbModule,
     UserModule,
     ShareModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

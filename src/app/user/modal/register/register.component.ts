@@ -9,6 +9,7 @@ import { GenderService } from "../../../shared/services/gender/gender.service";
 import { Person } from "../../../shared/model/person";
 import { User } from "../../../shared/model/user";
 import { UserService } from "../../services/user.service";
+import {AuthService} from "../../../auth/service/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -43,7 +44,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
               private formBuilder: FormBuilder,
               private identificationTypeService: IdentificationTypeService,
               private genderService: GenderService,
-              private userService: UserService) {
+              private userService: UserService,
+              private authService: AuthService) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -77,8 +79,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.save(this.user).subscribe({
       next: value => {
         this.createdUser = value;
-        alert('Usuario registrado');
-        alert(JSON.stringify(this.createdUser));
+        this.authService.loginUser(this.createdUser);
       },
       error: err => {
         alert('No se pudo registrar al usuario');

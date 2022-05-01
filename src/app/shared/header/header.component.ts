@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {RegisterComponent} from "../../user/modal/register/register.component";
+import {AuthService} from "../../auth/service/auth.service";
+import {Profile} from "../model/profile";
+import {LoginComponent} from "../../user/modal/login/login.component";
 
 @Component({
   selector: 'app-header',
@@ -9,13 +12,24 @@ import {RegisterComponent} from "../../user/modal/register/register.component";
 })
 export class HeaderComponent implements OnInit {
 
-  closeResult: string;
 
-  constructor(private modalService: NgbModal) {
+  closeResult: string;
+  isLoggedIn: boolean = false;
+
+  constructor(private modalService: NgbModal,
+              private authService: AuthService) {
     this.closeResult = "";
   }
 
   openRegisterForm(): void {
+    this.openModal(RegisterComponent);
+  }
+
+  openLoginForm(): void {
+    this.openModal(LoginComponent);
+  }
+
+  openModal(component: any): void {
     let modalRef: NgbModalRef;
     const options = {
       ariaLabelledBy: 'modal-basic-title',
@@ -25,12 +39,17 @@ export class HeaderComponent implements OnInit {
       centered: true,
       scrollable: true
     };
-    modalRef = this.modalService.open(RegisterComponent, options);
+    modalRef = this.modalService.open(component, options);
     modalRef.result.then((result) => {
       this.closeResult = `Cerrado con: ${result}`;
     }, (reason) => {
       this.closeResult = `Cerrado ${this.getDismissReason(reason)}`;
     });
+  }
+
+  public logout(): void {
+    this.authService.logout();
+    this.isLoggedIn =  this.authService.isLoggedIn();
   }
 
   private getDismissReason(reason: any): string {
@@ -44,6 +63,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoggedIn =  this.authService.isLoggedIn();
   }
 
 }
