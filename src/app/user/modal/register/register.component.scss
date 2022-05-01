@@ -1,5 +1,18 @@
 @import "src/styling/modal-styles";
 
+.is-invalid{
+  *{
+   color: red;
+  }
+}
+
+*{
+  font-size: 12px;
+  .helper{
+    font-size: 10px;
+  }
+}
+
 .form-group{
   margin-bottom: 15px;
 }

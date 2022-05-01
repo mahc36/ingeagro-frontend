@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserModule } from "./user/user.module";
 import { ShareModule } from "./shared/share.module";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ShareModule } from "./shared/share.module";
     AppRoutingModule,
     NgbModule,
     UserModule,
-    ShareModule
+    ShareModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

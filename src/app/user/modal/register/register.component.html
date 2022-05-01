@@ -12,7 +12,7 @@
       <label for="firstName">Nombres</label>
       <input type="text" class="form-control" formControlName="firstName"
              id="firstName" aria-describedby="firstNameHelp" placeholder="Escribe tu nombre">
-      <small id="firstNameHelp" class="form-text text-muted">Escribe tu nombre o nombres</small>
+      <small id="firstNameHelp" class="helper form-text text-muted">Escribe tu nombre o nombres</small>
     </div>
 
     <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
@@ -30,26 +30,51 @@
     <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.identificationType.errors }">
       <label for="identificationType">Tipo de identifiaci&oacute;n</label>
       <select class="form-control" id="identificationType" formControlName="identificationType">
-        <option value="1" selected>CC</option>
-        <option value="2">CE</option>
-        <option value="3">NIT</option>
+        <option disabled selected value> -- selecciona una opci&oacute;n -- </option>
+        <option *ngFor='let it of identificationTypes ; let i = index' [value]="it.id">{{it.identificationType}}</option>
       </select>
     </div>
 
     <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.identificationNumber.errors }">
       <label for="identificationNumber">N&uacute;mero de identificaci&oacute;n</label>
       <input type="text" class="form-control" formControlName="identificationNumber"
-             id="identificationNumber"  placeholder="Número de identificación">
+             id="identificationNumber"  placeholder="Número de identificaci&oacute;n"
+             [minlength]="minLengthIdentificationNumber"
+             [maxlength]="maxLengthIdentificationNumber">
+      <small id="identificationNumberHelp" class="helper form-text text-muted">Solo 10 d&iacute;gitos</small>
     </div>
 
     <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
-      <label for="gender">Genero</label>
+      <label for="gender">G&eacute;nero</label>
       <select class="form-control" id="gender" formControlName="gender">
-        <option value="1" selected>Hombre</option>
-        <option value="2">Mujer</option>
-        <option value="3">NA</option>
+        <option disabled selected value> -- selecciona una opci&oacute;n -- </option>
+        <option *ngFor='let g of genders ; let i = index' [value]="g.id">{{g.genderName}}</option>
       </select>
     </div>
+
+    <hr>
+
+    <div class="">
+      <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+        <label for="username">Usuario</label>
+        <input type="text" class="form-control" formControlName="username"
+               id="username" aria-describedby="username" placeholder="Escribe tu nombre de usuario">
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+        <label for="password">Contrase&ntilde;a</label>
+        <input type="password" class="form-control" formControlName="password"
+               id="password" aria-describedby="password" placeholder="Escribe tu contrase&ntilde;a">
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }">
+        <label for="passwordConfirmation">Contrase&ntilde;a</label>
+        <input type="password" class="form-control" formControlName="passwordConfirmation"
+               id="passwordConfirmation" aria-describedby="passwordConfirmation" placeholder="Repite tu contrase&ntilde;a">
+      </div>
+
+    </div>
+
 
   </form>
 
