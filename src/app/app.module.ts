@@ -8,10 +8,17 @@ import { UserModule } from "./user/user.module";
 import { ShareModule } from "./shared/share.module";
 import { HttpClientModule } from "@angular/common/http";
 import { AuthModule } from "./auth/auth.module";
+import { LoggedLayoutComponent } from './layout/logged-layout/logged-layout.component';
+import { ToLoginLayoutComponent } from './layout/to-login-layout/to-login-layout.component';
+import { ProductModule } from "./product/product.module";
+import { NotFoundComponent } from './http/not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoggedLayoutComponent,
+    ToLoginLayoutComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +27,8 @@ import { AuthModule } from "./auth/auth.module";
     UserModule,
     ShareModule,
     HttpClientModule,
-    AuthModule
+    AuthModule,
+    ProductModule
   ],
   providers: [],
   bootstrap: [AppComponent]

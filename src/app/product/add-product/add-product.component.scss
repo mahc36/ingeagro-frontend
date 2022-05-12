@@ -1,0 +1,22 @@
+@import "../../../styling/mixins";
+
+.product-form{
+  padding: 30px 60px;
+}
+
+.form-group{
+  margin-top: 10px;
+}
+
+.centered{
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+}
+
+.app-btn{
+  margin-top: 20px;
+  padding: 15px;
+}
+
+
