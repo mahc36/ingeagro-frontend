@@ -5,9 +5,8 @@
       <a class="logo d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
         <img src="https://us.123rf.com/450wm/designeran/designeran1605/designeran160500118/56622411-logotipo-del-tractor-respetuoso-del-medio-ambiente-.jpg?ver=6" />
       </a>
-      <a *ngIf="isLoggedIn" routerLink="/add-product" routerLinkActive="active">
-        Add product
-      </a>
+      <a *ngIf="isLoggedIn" routerLink="/add-product" routerLinkActive="active">Agregar productos</a>
+      <a *ngIf="isLoggedIn" routerLink="/my-products" routerLinkActive="active">Mis productos</a>
 
       <div class="text-end" *ngIf="!isLoggedIn">
         <a type="button" (click)="openLoginForm()" class="btn btn-outline-light me-2">Entrar</a>

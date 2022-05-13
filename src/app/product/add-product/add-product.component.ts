@@ -1,23 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ProductService } from "../services/product.service";
-import {IdentificationType} from "../../shared/model/identification-type";
-import {Gender} from "../../shared/model/gender";
-import {ProductType} from "../../shared/model/product-type";
+import { ProductType } from "../../shared/model/product-type";
+import { QuantityType } from "../../shared/model/quantity-type";
+import { Subscription } from "rxjs";
+import { Stock } from "../../shared/model/stock";
+import { Product, ProductForm } from "../../shared/model/product";
+import { AuthService } from "../../auth/service/auth.service";
+import { Profile } from "../../shared/model/profile";
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss']
 })
-export class AddProductComponent implements OnInit {
+export class AddProductComponent implements OnInit, OnDestroy {
 
   public submitted = false;
   public productForm: FormGroup;
 
+  profile : Profile | undefined;
   productTypes : ProductType[] = [];
+  quantityTypes: QuantityType[] = [];
 
-  constructor(private formBuilder: FormBuilder, private productService: ProductService) {
+  ptSubscription : Subscription | undefined;
+  qtSubscription : Subscription | undefined;
+
+  stock: Stock | undefined;
+  quantityType: QuantityType | undefined;
+  productType: ProductType | undefined;
+  product: Product | undefined;
+  productFormApi: ProductForm | undefined;
+
+  constructor(private formBuilder: FormBuilder,
+              private productService: ProductService,
+              private authService: AuthService) {
     this.productForm = formBuilder.group({
       price: ['', Validators.required],
       stock: ['', Validators.required],
@@ -31,11 +48,74 @@ export class AddProductComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    alert("Le dieron al botón submit");
+    if (this.productForm.invalid) {
+      return;
+    }
+    this.createStockFromForm();
+    this.createQtyTypeFromForm();
+    this.createProductTypeFromForm();
+    this.createProductFromForm();
+    this.createProductFormApi();
+
+    this.saveProduct();
+  }
+
+  private saveProduct() {
+    this.productService.saveProduct(this.productFormApi).subscribe({
+      next: value => {
+        alert('Producto agregado');
+      },
+      error: err => {
+        alert(err.error.error);
+      }
+    });
+  }
+
+  private createProductFormApi() {
+    this.productFormApi = {
+      product: this.product,
+      sellerId: this.profile?.seller?.id
+    }
+  }
+
+  private createProductFromForm() {
+    this.product = {
+      productType: this.productType,
+      stock: this.stock,
+      quantityType: this.quantityType,
+      price: this.f.price.value,
+      description: this.f.description.value
+    }
+  }
+
+  private createProductTypeFromForm() {
+    this.productType = {
+      id: this.f.productType.value
+    }
+  }
+
+  private createQtyTypeFromForm() {
+    this.quantityType = {
+      id: this.f.quantityType.value
+    }
+  }
+
+  private createStockFromForm() {
+    this.stock = {
+      initialQuantity: this.f.stock.value,
+      remainingQuantity: this.f.stock.value,
+      soldQuantity: 0
+    }
   }
 
   ngOnInit(): void {
-    this.productService.getAllProductType().subscribe({
+    this.loadProductTypes();
+    this.loadQtyTypes();
+    this.profile = this.authService.currentUserProfileValue;
+  }
+
+  private loadProductTypes() {
+    this.ptSubscription = this.productService.getAllProductType().subscribe({
       next: value => {
         this.productTypes = value;
       },
@@ -44,4 +124,25 @@ export class AddProductComponent implements OnInit {
       }
     });
   }
+
+  private loadQtyTypes() {
+    this.qtSubscription = this.productService.getAllQuantityType().subscribe({
+      next: value => {
+        this.quantityTypes = value;
+      },
+      error: err => {
+        alert('Ocurrio un error tratando de obterner los tipos de cantidades de un producto');
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    if(this.qtSubscription){
+      this.qtSubscription.unsubscribe();
+    }
+    if(this.ptSubscription){
+      this.ptSubscription.unsubscribe();
+    }
+  }
+
 }

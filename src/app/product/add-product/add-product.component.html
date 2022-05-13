@@ -8,6 +8,22 @@
     </select>
   </div>
 
+  <div class="input-together">
+    <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.stock.errors }">
+      <label for="stock">Cantidad</label>
+      <input type="number" class="form-control" formControlName="stock"
+             id="stock"  placeholder="Escribe la cantidad">
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.quantityType.errors }">
+      <label for="quantityType">Tipo de cantidad</label>
+      <select class="form-control" id="quantityType" formControlName="quantityType">
+        <option disabled selected value> -- selecciona una opci&oacute;n -- </option>
+        <option *ngFor='let qt of quantityTypes ; let i = index' [value]="qt.id">{{qt.name}}</option>
+      </select>
+    </div>
+  </div>
+
   <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.price.errors }">
     <label for="price">Precio</label>
     <input type="number" class="form-control" formControlName="price"
@@ -15,29 +31,11 @@
     <small id="priceHelp" class="helper form-text text-muted">Escribe el precio en pesos colombianos</small>
   </div>
 
-  <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.stock.errors }">
-    <label for="stock">Cantidad</label>
-    <input type="number" class="form-control" formControlName="stock"
-           id="stock"  placeholder="Escribe la cantidad">
-  </div>
-
   <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
     <label for="description">Descripci&oacute;n</label>
-    <textarea type="text" class="form-control" formControlName="description"
-              id="description"  placeholder="Escribe la descripci&oacute;n">
+    <textarea type="text" class="form-control text-area" formControlName="description"
+              id="description"  placeholder="Escribe la descripci&oacute;n" maxlength="300">
     </textarea>
-  </div>
-
-  <div class="form-group" [ngClass]="{ 'is-invalid': submitted && f.quantityType.errors }">
-    <label for="quantityType">Tipo de cantidad</label>
-    <select class="form-control" id="quantityType" formControlName="quantityType">
-      <option disabled selected value> -- selecciona una opci&oacute;n -- </option>
-      <option> KG </option>
-      <option> LIBRA </option>
-      <option> Onzas </option>
-      <option> Litros </option>
-      <!--<option *ngFor='let it of identificationTypes ; let i = index' [value]="it.id">{{it.identificationType}}</option>-->
-    </select>
   </div>
 
   <div class="centered">

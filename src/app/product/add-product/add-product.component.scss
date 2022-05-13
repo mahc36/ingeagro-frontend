@@ -1,5 +1,9 @@
 @import "../../../styling/mixins";
 
+.is-invalid{
+  color: red;
+}
+
 .product-form{
   padding: 30px 60px;
 }
@@ -19,4 +23,17 @@
   padding: 15px;
 }
 
+.text-area{
+  min-height: 100px;
+}
 
+.input-together{
+  @include flexbox;
+  @include flex-wrap(no-wrap);
+  @include justify-content(space-between);
+  width: 100%;
+  .form-group{
+    min-width: 47%;
+    max-width: 50%;
+  }
+}
