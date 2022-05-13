@@ -8,20 +8,20 @@ import { MyProductsComponent } from "./product/my-products/my-products.component
 import { ProductListComponent } from "./product/product-list/product-list.component";
 import { ToLoginGuard } from "./auth/guard/to-login.guard";
 
-/*const routes: Routes = [
-  {
-    path: '',
-    component: ToLoginLayoutComponent,
-    canActivate: [ToLoginGuard],
-    children: [
-      {
-        path: '',
-        component: ProductListComponent,
-        canActivate: [ToLoginGuard],
-      }
-    ]
-  },
-];*/
+// const routes: Routes = [
+//   {
+//     path: '',
+//     component: ToLoginLayoutComponent,
+//     canActivate: [ToLoginGuard],
+//     children: [
+//       {
+//         path: '',
+//         component: ProductListComponent,
+//         canActivate: [ToLoginGuard],
+//       }
+//     ]
+//   },
+// ];
 const routes: Routes = [
   {
     path: '',
@@ -31,7 +31,7 @@ const routes: Routes = [
       {
         path: '',
         canActivate: [AuthGuard],
-        component: MyProductsComponent
+        component: ProductListComponent
       },
       {
         path: 'add-product',

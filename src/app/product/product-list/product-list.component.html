@@ -1,1 +1,11 @@
-<p>product-list works!</p>
+<div class="products-list-container">
+  <div class="product-container">
+    <div *ngFor='let p of products ; let i = index' class="product-card">
+      <div>{{p?.productType?.name}}</div>
+      <div>{{p?.price}}</div>
+      <div>{{p?.stock?.remainingQuantity}}</div>
+      <div>{{p?.quantityType?.name}}</div>
+      <div>{{p?.description}}</div>
+    </div>
+  </div>
+</div>

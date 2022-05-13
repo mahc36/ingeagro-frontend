@@ -1,0 +1,17 @@
+@import "../../../styling/mixins";
+.products-list-container{
+  padding: 40px 10px;
+}
+
+.product-container{
+  @include flexbox;
+  @include flex-wrap(wrap);
+  @include align-items(space-between);
+  width: 100%;
+}
+
+.product-card{
+  width: 29%;
+  border: 1px solid black;
+  padding: 5px;
+}

@@ -63,6 +63,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
   private saveProduct() {
     this.productService.saveProduct(this.productFormApi).subscribe({
       next: value => {
+        this.productForm.reset();
+        this.submitted = false;
         alert('Producto agregado');
       },
       error: err => {

@@ -15,6 +15,7 @@ export class ProductService {
   private getAllQtyTypeUrl : string = `${environment.apiURL}/qty-type/findAll`;
   private productSaveUrl : string = `${environment.apiURL}/product/save`;
   private getAllProductsBySellerIdUrl : string = `${environment.apiURL}/product/getBySellerId`;
+  private getAllProductsUrl : string = `${environment.apiURL}/product/findAll`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -32,6 +33,10 @@ export class ProductService {
 
   public getAllProductsBySellerId(sellerId : number | undefined) : Observable<Product[]> {
     return this.httpClient.get<Product[]>(`${this.getAllProductsBySellerIdUrl}?sellerId=${sellerId}`);
+  }
+
+  public getAllProducts(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.getAllProductsUrl);
   }
 
 
