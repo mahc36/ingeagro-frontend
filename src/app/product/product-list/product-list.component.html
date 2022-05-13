@@ -1,11 +1,14 @@
 <div class="products-list-container">
   <div class="product-container">
-    <div *ngFor='let p of products ; let i = index' class="product-card">
-      <div>{{p?.productType?.name}}</div>
-      <div>{{p?.price}}</div>
-      <div>{{p?.stock?.remainingQuantity}}</div>
-      <div>{{p?.quantityType?.name}}</div>
-      <div>{{p?.description}}</div>
+    <div *ngFor='let p of products ; let i = index' class="card product-card pricingTable green">
+      <img class="card-img-top" src="https://saborusa.com.pa/imagesmg/imagenes/5ff3e6a0b703f_potatoes-food-supermarket-agriculture-JG7QGNY.jpg" alt="producto">
+      <div class="card-body">
+        <div class="product-name">{{p?.productType?.name}}</div>
+        <div class="product-description">{{p?.description}}</div>
+        <hr>
+        <div>{{getPriceByQtyType(p)}} x {{p?.quantityType?.name}}</div>
+        <a class="btn btn-primary add-to-cart">Agregar al carrito</a>
+      </div>
     </div>
   </div>
 </div>

@@ -10,3 +10,21 @@
     height: 35px;
   }
 }
+
+
+.cart-icon{
+  max-width: 40px;
+  max-height: 40px;
+  margin-left: 10px;
+
+  *{
+    fill: white;
+  }
+
+  &:hover{
+    cursor: pointer;
+    *{
+      fill: #cc7c2a;
+    }
+  }
+}

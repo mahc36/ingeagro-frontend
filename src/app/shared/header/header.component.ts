@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {RegisterComponent} from "../../user/modal/register/register.component";
-import {AuthService} from "../../auth/service/auth.service";
-import {Profile} from "../model/profile";
-import {LoginComponent} from "../../user/modal/login/login.component";
+import { ModalDismissReasons, NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
+import { RegisterComponent } from "../../user/modal/register/register.component";
+import { AuthService } from "../../auth/service/auth.service";
+import { LoginComponent } from "../../user/modal/login/login.component";
+import {ToggleminicartService} from "../../cart/services/toggleminicart.service";
 
 @Component({
   selector: 'app-header',
@@ -12,12 +12,13 @@ import {LoginComponent} from "../../user/modal/login/login.component";
 })
 export class HeaderComponent implements OnInit {
 
-
+  openCart = false;
   closeResult: string;
   isLoggedIn: boolean = false;
 
   constructor(private modalService: NgbModal,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private toggleMiniCartService: ToggleminicartService) {
     this.closeResult = "";
   }
 
@@ -60,6 +61,10 @@ export class HeaderComponent implements OnInit {
     } else {
       return  `con: ${reason}`;
     }
+  }
+
+  public toggleCart(): void {
+    this.toggleMiniCartService.setToggleMiniCart(true);
   }
 
   ngOnInit(): void {

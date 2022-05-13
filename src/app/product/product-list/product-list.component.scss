@@ -1,4 +1,6 @@
 @import "../../../styling/mixins";
+@import "../../../styling/screen-variables";
+
 .products-list-container{
   padding: 40px 10px;
 }
@@ -6,12 +8,30 @@
 .product-container{
   @include flexbox;
   @include flex-wrap(wrap);
-  @include align-items(space-between);
   width: 100%;
 }
 
 .product-card{
-  width: 29%;
-  border: 1px solid black;
+  width: 33%;
+  margin-left: 0.3%;
   padding: 5px;
+  margin-bottom: 10px;
+}
+
+.product-name{
+  font-size: 20px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.product-description{
+  font-size: 12px;
+}
+
+.card-body{
+  font-size: 14px;
+}
+
+.add-to-cart{
+  margin-top: 15px;
 }

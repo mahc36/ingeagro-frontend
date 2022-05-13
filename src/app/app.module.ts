@@ -12,6 +12,7 @@ import { LoggedLayoutComponent } from './layout/logged-layout/logged-layout.comp
 import { ToLoginLayoutComponent } from './layout/to-login-layout/to-login-layout.component';
 import { ProductModule } from "./product/product.module";
 import { NotFoundComponent } from './http/not-found/not-found.component';
+import {CartModule} from "./cart/cart.module";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NotFoundComponent } from './http/not-found/not-found.component';
     ShareModule,
     HttpClientModule,
     AuthModule,
-    ProductModule
+    ProductModule,
+    CartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

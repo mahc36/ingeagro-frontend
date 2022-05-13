@@ -26,12 +26,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
     });
   }
 
+  getPriceByQtyType(p: Product | undefined): number | undefined {
+    if(p && p.price && p.stock && p.stock.initialQuantity){
+      return (p?.price) / (p?.stock?.initialQuantity);
+    }
+    return 0;
+  }
+
   ngOnDestroy(): void {
     if(this.pSubscription){
       this.pSubscription.unsubscribe();
     }
   }
-
-
 
 }
