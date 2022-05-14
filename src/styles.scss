@@ -3,3 +3,10 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 @import "styling/modal-styles";
+
+.cdk-overlay-container{
+  padding-top: 20px;
+  margin-top: 0;
+  @include flexbox;
+  @include justify-content(flex-end);
+}

@@ -13,6 +13,7 @@ import { ToLoginLayoutComponent } from './layout/to-login-layout/to-login-layout
 import { ProductModule } from "./product/product.module";
 import { NotFoundComponent } from './http/not-found/not-found.component';
 import {CartModule} from "./cart/cart.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -26,11 +27,12 @@ import {CartModule} from "./cart/cart.module";
     AppRoutingModule,
     NgbModule,
     UserModule,
-    ShareModule,
+    ShareModule.forRoot(),
     HttpClientModule,
     AuthModule,
     ProductModule,
-    CartModule
+    CartModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

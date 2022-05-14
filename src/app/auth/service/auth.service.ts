@@ -5,7 +5,8 @@ import { HttpClient } from "@angular/common/http";
 import { Profile } from "../../shared/model/profile";
 import { environment } from "../../../environments/environment";
 import { Router } from "@angular/router";
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import {AlertService} from "../../shared/services/alert/alert.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private modalService: NgbModal ) {
+              private modalService: NgbModal,
+              private alertService: AlertService) {
     const userProfile = localStorage.getItem('currentUserProfile');
     if(userProfile){
       this.currentUserProfileSubject = new BehaviorSubject<Profile>(JSON.parse(userProfile));
@@ -44,7 +46,10 @@ export class AuthService {
         window.location.reload();
       },
       error: err => {
-        alert(JSON.stringify(err.error.error));
+        this.alertService.show({
+          type: "danger",
+          text: err.error.error
+        })
       }
     });
   }

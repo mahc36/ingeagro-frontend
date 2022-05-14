@@ -9,7 +9,8 @@ import { GenderService } from "../../../shared/services/gender/gender.service";
 import { Person } from "../../../shared/model/person";
 import { User } from "../../../shared/model/user";
 import { UserService } from "../../services/user.service";
-import {AuthService} from "../../../auth/service/auth.service";
+import { AuthService } from "../../../auth/service/auth.service";
+import {AlertService} from "../../../shared/services/alert/alert.service";
 
 @Component({
   selector: 'app-register',
@@ -45,7 +46,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
               private identificationTypeService: IdentificationTypeService,
               private genderService: GenderService,
               private userService: UserService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private alertService: AlertService) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -82,7 +84,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.authService.loginUser(this.createdUser);
       },
       error: err => {
-        alert('No se pudo registrar al usuario');
+        this.alertService.show({
+          type: "danger",
+          text: "No se pudo registrar al usuario"
+        })
       }
     });
   }
@@ -98,7 +103,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   private createPersonFromForm() {
     let value = this.f.bornDate.value;
     const date = new Date();
-    alert(value.month);
     date.setFullYear(value.year, value.month - 1, value.day);
     this.person = {
       firstName: this.f.firstName.value,
@@ -139,7 +143,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.genders = value;
       },
       error: err => {
-        console.log("No se pudieron cargar los tipos de género")
+        this.alertService.show({
+          type: "danger",
+          text: "No se pudieron cargar los tipos de género"
+        })
       }
     })
   }

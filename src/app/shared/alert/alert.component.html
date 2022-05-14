@@ -1,0 +1,9 @@
+<div class="alert-container {{data?.type | lowercase}}"
+     [@fadeAnimation]="{value: animationState, params:
+      { fadeIn: alertConfig?.animation?.fadeIn, fadeOut: alertConfig?.animation?.fadeOut }}"
+     (@fadeAnimation.done)="onFadeFinished($event)">
+
+  <div class="alert-message">{{ data?.text }}</div>
+  <button type="button" class="close-btn close-alert" aria-label="Close" (click)="close()"></button>
+
+</div>

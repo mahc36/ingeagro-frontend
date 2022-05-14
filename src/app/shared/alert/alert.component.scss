@@ -1,0 +1,58 @@
+@import "../../../styling/shared";
+@import "../../../styling/mixins";
+@import "../../../styling/color-variables";
+@import "../../../styling/screen-variables";
+
+.alert-container {
+  min-width: 300px;
+  position: relative;
+  z-index: 50000;
+
+  @include flexbox;
+  @include flex-wrap(no-wrap);
+  margin-bottom: 20px;
+  width: 100%;
+  background: $white;
+  -webkit-box-shadow: 0 0 18px $shadow-1;
+  border-radius: 10px;
+  box-shadow: 0 0 18px $shadow-1;
+  max-width: 100%;
+  padding: 15px;
+
+  // Boostrap colors for state
+  border-left: 15px solid $b-default;
+  &.warning{ border-left: 15px solid $b-warning; }
+  &.info{ border-left: 15px solid $b-info; }
+  &.success{ border-left: 15px solid $b-success; }
+  &.danger{ border-left: 15px solid $b-danger; }
+}
+
+
+.alert-message{
+  width: 100%;
+  @include barlow-extra-light;
+  font-weight: bold;
+  font-size: 14px;
+  @media (min-width: $desktop-extra-large) {
+    font-size: 20px;
+  }
+}
+
+.close-btn{
+  background-color: $white;
+  border: none;
+  &:before{
+    display: block;
+    content: ' ';
+    background-color: $white;
+    background-image: url('../../../assets/images/svg/close-modal.svg');
+    background-size: 15px 15px;
+    height: 15px;
+    width: 15px;
+    @media (min-width: $desktop-extra-large) {
+      background-size: 20px 20px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+}
