@@ -84,10 +84,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.authService.loginUser(this.createdUser);
       },
       error: err => {
-        this.alertService.show({
-          type: "danger",
-          text: "No se pudo registrar al usuario"
-        })
+        this.alertService.showDanger('No se pudo registrar al usuario');
       }
     });
   }
@@ -143,10 +140,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.genders = value;
       },
       error: err => {
-        this.alertService.show({
-          type: "danger",
-          text: "No se pudieron cargar los tipos de género"
-        })
+        this.alertService.showDanger('No se pudieron cargar los tipos de género');
       }
     })
   }

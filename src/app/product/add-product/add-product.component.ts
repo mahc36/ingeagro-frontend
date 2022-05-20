@@ -8,6 +8,7 @@ import { Stock } from "../../shared/model/stock";
 import { Product, ProductForm } from "../../shared/model/product";
 import { AuthService } from "../../auth/service/auth.service";
 import { Profile } from "../../shared/model/profile";
+import {AlertService} from "../../shared/services/alert/alert.service";
 
 @Component({
   selector: 'app-add-product',
@@ -34,7 +35,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
               private productService: ProductService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private alertService: AlertService) {
     this.productForm = formBuilder.group({
       price: ['', Validators.required],
       stock: ['', Validators.required],
@@ -49,6 +51,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.submitted = true;
     if (this.productForm.invalid) {
+      this.alertService.showDanger('Por favor ingrese todos los datos');
       return;
     }
     this.createStockFromForm();

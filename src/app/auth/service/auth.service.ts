@@ -46,10 +46,7 @@ export class AuthService {
         window.location.reload();
       },
       error: err => {
-        this.alertService.show({
-          type: "danger",
-          text: err.error.error
-        })
+        this.alertService.showWarning(err.error.error);
       }
     });
   }

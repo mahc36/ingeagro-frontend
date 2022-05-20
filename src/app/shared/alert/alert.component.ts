@@ -26,7 +26,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.intervalId = setTimeout(() => this.animationState = 'closing',
-      this.data?.milliSecondsTimeout ? this.data?.milliSecondsTimeout : 40000 );
+      this.data?.milliSecondsTimeout ? this.data?.milliSecondsTimeout : 5000 );
   }
 
   ngOnDestroy(): void {

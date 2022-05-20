@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from "../services/product.service";
 import {Product} from "../../shared/model/product";
 import {Subscription} from "rxjs";
+import {AlertService} from "../../shared/services/alert/alert.service";
 
 @Component({
   selector: 'app-product-list',
@@ -13,7 +14,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   products: Product[] | undefined;
   pSubscription : Subscription | undefined;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.pSubscription = this.productService.getAllProducts().subscribe({
@@ -21,7 +23,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.products = value;
       },
       error: err => {
-        alert("ocurrio un problema trayendo todos los productos");
+        this.alertService.showDanger('ocurrio un problema trayendo todos los productos');
       }
     });
   }

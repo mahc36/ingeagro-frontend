@@ -18,6 +18,22 @@ export class AlertService {
     @Inject(ALERT_CONFIG_TOKEN) private alertConfig: AlertConfig
   ) { }
 
+  showWarning(text: string): AlertRef {
+    return this.show({type: "warning", text})
+  }
+
+  showDanger(text: string): AlertRef {
+    return this.show({type: "danger", text})
+  }
+
+  showInfo(text: string): AlertRef {
+    return this.show({type: "info", text})
+  }
+
+  showSuccess(text: string): AlertRef {
+    return this.show({type: "success", text})
+  }
+
   show(data: AlertData): AlertRef {
     const positionStrategy = this.getPositionStrategy();
     const overlayRef = this.overlay.create({ positionStrategy });

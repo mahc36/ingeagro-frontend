@@ -7,6 +7,7 @@
       </a>
       <a *ngIf="isLoggedIn" routerLink="/add-product" routerLinkActive="active">Agregar productos</a>
       <a *ngIf="isLoggedIn" routerLink="/my-products" routerLinkActive="active">Mis productos</a>
+      <a *ngIf="isLoggedIn" routerLink="/list" routerLinkActive="active">Productos</a>
 
       <div class="text-end" *ngIf="!isLoggedIn">
         <a type="button" (click)="openLoginForm()" class="btn btn-outline-light me-2">Entrar</a>

@@ -3,6 +3,7 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 @import "styling/modal-styles";
+@import "styling/font-family";
 
 .cdk-overlay-container{
   padding-top: 20px;
