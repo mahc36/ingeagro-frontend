@@ -7,14 +7,15 @@ import { AuthService } from "../service/auth.service";
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot){
     const currentUser = this.authService.currentUserProfileValue;
-    if (currentUser) {
+    if(currentUser){
       return true;
     }
     else{
+      this.router.navigate(['/forbidden']);
       return false;
     }
   }

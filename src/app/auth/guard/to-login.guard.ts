@@ -10,12 +10,7 @@ export class ToLoginGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot){
     const currentUser = this.authService.currentUserProfileValue;
-    if (currentUser) {
-      return false;
-    }
-    else{
-      return true;
-    }
+    return !currentUser;
   }
 
 }

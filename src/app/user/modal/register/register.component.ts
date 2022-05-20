@@ -151,7 +151,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.identificationTypes = value;
       },
       error: err => {
-        console.log('No se pudieron cargar los tipos de identificación')
+        this.alertService.showDanger('No se pudieron cargar los tipos de identificación');
       }
     })
   }

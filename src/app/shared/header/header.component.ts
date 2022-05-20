@@ -4,6 +4,7 @@ import { RegisterComponent } from "../../user/modal/register/register.component"
 import { AuthService } from "../../auth/service/auth.service";
 import { LoginComponent } from "../../user/modal/login/login.component";
 import {ToggleminicartService} from "../../cart/services/toggleminicart.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private modalService: NgbModal,
               private authService: AuthService,
-              private toggleMiniCartService: ToggleminicartService) {
+              private toggleMiniCartService: ToggleminicartService,
+              private router: Router) {
     this.closeResult = "";
   }
 
@@ -51,6 +53,7 @@ export class HeaderComponent implements OnInit {
   public logout(): void {
     this.authService.logout();
     this.isLoggedIn =  this.authService.isLoggedIn();
+    this.router.navigate(["/"]);
   }
 
   private getDismissReason(reason: any): string {

@@ -8,6 +8,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ALERT_CONFIG_TOKEN, defaultAlertConfig } from './services/alert/alert-config';
 import { AlertComponent } from './alert/alert.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 @NgModule({
   exports: [
@@ -24,7 +25,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
   declarations: [
     FooterComponent,
     HeaderComponent,
-    AlertComponent
+    AlertComponent,
+    ForbiddenComponent
   ]
 })
 export class ShareModule {
