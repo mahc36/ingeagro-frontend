@@ -6,6 +6,7 @@ import { AddProductComponent } from "./product/add-product/add-product.component
 import { MyProductsComponent } from "./product/my-products/my-products.component";
 import { ProductListComponent } from "./product/product-list/product-list.component";
 import {ForbiddenComponent} from "./shared/components/forbidden/forbidden.component";
+import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
 
 const routes: Routes = [
   {
@@ -32,7 +33,9 @@ const routes: Routes = [
       }
     ]
   },
-  {path: 'forbidden', component: ForbiddenComponent}
+  { path: 'not-found', component: NotFoundComponent },
+  { path: 'forbidden', component: ForbiddenComponent },
+  { path: '**', redirectTo: 'not-found' }
 ];
 
 @NgModule({

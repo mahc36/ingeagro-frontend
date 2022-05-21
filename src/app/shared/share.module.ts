@@ -9,6 +9,8 @@ import { ALERT_CONFIG_TOKEN, defaultAlertConfig } from './services/alert/alert-c
 import { AlertComponent } from './alert/alert.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   exports: [
@@ -26,7 +28,9 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
     FooterComponent,
     HeaderComponent,
     AlertComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    MenuComponent,
+    NotFoundComponent
   ]
 })
 export class ShareModule {
