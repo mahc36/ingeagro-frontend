@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ToggleminicartService} from "../services/toggleminicart.service";
+import {ToggleminicartService} from "../../services/toggleminicart.service";
 
 @Component({
   selector: 'app-minicart',

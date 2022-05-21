@@ -42,10 +42,6 @@
     }
   }
 
-  .modal-body{
-    border: 1px solid $black;
-  }
-
   .modal-footer{
     @include flexbox;
     @include justify-content(center);

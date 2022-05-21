@@ -11,3 +11,7 @@
   @include flexbox;
   @include justify-content(flex-end);
 }
+
+*{
+  font-size: 13px;
+}

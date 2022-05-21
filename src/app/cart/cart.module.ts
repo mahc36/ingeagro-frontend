@@ -1,7 +1,8 @@
 import { NgModule } from "@angular/core";
-import { MinicartComponent } from './minicart/minicart.component';
+import { MinicartComponent } from './components/minicart/minicart.component';
 import { CommonModule } from "@angular/common";
 import { BrowserModule } from "@angular/platform-browser";
+import { AddToCartComponent } from './components/modal/add-to-cart/add-to-cart.component';
 
 @NgModule({
     imports: [
@@ -12,7 +13,8 @@ import { BrowserModule } from "@angular/platform-browser";
         MinicartComponent
     ],
     declarations: [
-        MinicartComponent
+        MinicartComponent,
+        AddToCartComponent
     ]
 })
 export class CartModule{

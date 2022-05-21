@@ -6,8 +6,8 @@
         <div class="product-name">{{p?.productType?.name}}</div>
         <div class="product-description">{{p?.description}}</div>
         <hr>
-        <div>{{getPriceByQtyType(p)}} x {{p?.quantityType?.name}}</div>
-        <a class="btn btn-primary add-to-cart">Agregar al carrito</a>
+        <div>{{getPriceByQtyType(p) | currency:'COP'}} por {{p?.quantityType?.name}}</div>
+        <a class="btn btn-primary add-to-cart" (click)="showAddToCartModal(p?.id)">Agregar al carrito</a>
       </div>
     </div>
   </div>
