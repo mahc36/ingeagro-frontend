@@ -5,6 +5,11 @@ import { Product } from "../../../../shared/model/product";
 import { Subscription } from "rxjs";
 import { AlertService } from "../../../../shared/services/alert/alert.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {AddToCartRequest} from "../../../../shared/model/requests";
+import {Cart} from "../../../../shared/model/cart";
+import {AuthService} from "../../../../auth/service/auth.service";
+import {CartService} from "../../../../shared/services/cart/cart.service";
+import {ToggleminicartService} from "../../../services/toggleminicart.service";
 
 @Component({
   selector: 'app-add-to-cart',
@@ -16,6 +21,8 @@ export class AddToCartComponent implements OnInit, OnDestroy {
   @Input() productId: number | undefined;
   product: Product | undefined;
   productSubscription : Subscription | undefined;
+  addToCartRequest : AddToCartRequest | undefined;
+  cart: Cart | undefined;
 
   addToCartForm: FormGroup;
   maxQty: number = 0;
@@ -24,7 +31,10 @@ export class AddToCartComponent implements OnInit, OnDestroy {
   constructor(private activeModal: NgbActiveModal,
               private productService: ProductService,
               private alertService: AlertService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private cartService: CartService,
+              private miniCartToggle: ToggleminicartService) {
     this.addToCartForm = this.formBuilder.group({
       qty: [0, [Validators.required, Validators.min(1), Validators.max(1)]]
     });
@@ -40,7 +50,34 @@ export class AddToCartComponent implements OnInit, OnDestroy {
       }
       return;
     }
-    alert('ITs going to add something here');
+    this.createRequestAddToCart();
+    this.cartService.addProductToCart(this.addToCartRequest).subscribe({
+      next: value => {
+        this.alertService.showSuccess('Producto agregado al carrito');
+        this.miniCartToggle.setToggleMiniCart(true);
+      },
+      error: err => {
+        this.alertService.showDanger('Ocurrio un problema tratando de agregar el producto al carrito');
+      }
+    });
+  }
+
+  private createRequestAddToCart() {
+    this.addToCartRequest = {
+      cartId: this.cart?.id,
+      qty: this.f.qty.value,
+      productId: this.productId,
+      buyerId: this.getBuyerId()
+    }
+  }
+
+  getBuyerId(): number | undefined{
+    if(this.authService.isLoggedIn()){
+      return this.authService.currentUserProfileValue?.buyer?.id;
+    }
+    else{
+      return this.authService.currentGuestProfileValue?.buyer?.id;
+    }
   }
 
   closeModal(reason: any): any {
@@ -78,7 +115,11 @@ export class AddToCartComponent implements OnInit, OnDestroy {
         error: err => {
           this.alertService.showDanger(err.error.error);
         }
-      })
+      });
+      let cart = localStorage.getItem('cart');
+      if(cart){
+        this.cart = JSON.parse(cart);
+      }
     }
   }
 

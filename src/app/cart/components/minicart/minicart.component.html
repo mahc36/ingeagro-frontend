@@ -6,8 +6,11 @@
   </div>
 
 
-  <div class="cart-items" *ngIf="false; else noItems">
-    <h1>Here is going to be some item cars later</h1>
+  <div class="cart-items" *ngIf="areThereProductsInCart(); else noItems">
+    <div *ngFor='let p of cart?.products ; let i = index'>
+      <div>{{p.product?.productType?.name}}</div>
+      <div>{{p.quantity}}</div>
+    </div>
   </div>
 </div>
 

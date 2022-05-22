@@ -3,8 +3,8 @@ import { ToggleminicartService } from "../../services/toggleminicart.service";
 import { CartService } from "../../../shared/services/cart/cart.service";
 import { AuthService } from "../../../auth/service/auth.service";
 import { Profile } from "../../../shared/model/profile";
-import {Cart} from "../../../shared/model/cart";
-import {AlertService} from "../../../shared/services/alert/alert.service";
+import { Cart } from "../../../shared/model/cart";
+import { AlertService } from "../../../shared/services/alert/alert.service";
 
 @Component({
   selector: 'app-minicart',
@@ -25,6 +25,11 @@ export class MinicartComponent implements OnInit {
 
   public closeMiniCart() : void {
     this.expanded = false;
+  }
+
+  areThereProductsInCart(): boolean {
+    return !!(this.cart && this.cart.products && this.cart.products.length > 0);
+
   }
 
   ngOnInit(): void {
@@ -58,7 +63,33 @@ export class MinicartComponent implements OnInit {
     this.toggleMiniCartService.toggleMiniCartStatus.subscribe({
       next: value => {
         this.expanded = value;
+        if(this.expanded){
+          this.refreshCart();
+        }
       }
     });
+  }
+
+  private refreshCart() {
+    let cartId = 0;
+    if (this.cart) {
+      cartId = this.cart?.id ? this.cart?.id : 0;
+    } else {
+      let cart = localStorage.getItem('cart');
+      if (cart) {
+        this.cart = JSON.parse(cart);
+      }
+      cartId = this.cart?.id ? this.cart?.id : 0;
+    }
+    if (cartId > 0) {
+      this.cartService.getACartById(cartId).subscribe({
+        next: value1 => {
+          this.cart = value1;
+        },
+        error: err => {
+          this.alertService.showDanger('Ocurrió un problema tratando de refrescar el carrito');
+        }
+      })
+    }
   }
 }
