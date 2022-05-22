@@ -5,6 +5,7 @@ import { AuthService } from "../../../auth/service/auth.service";
 import { Profile } from "../../../shared/model/profile";
 import { Cart } from "../../../shared/model/cart";
 import { AlertService } from "../../../shared/services/alert/alert.service";
+import {Product, SellProduct} from "../../../shared/model/product";
 
 @Component({
   selector: 'app-minicart',
@@ -30,6 +31,36 @@ export class MinicartComponent implements OnInit {
   areThereProductsInCart(): boolean {
     return !!(this.cart && this.cart.products && this.cart.products.length > 0);
 
+  }
+
+  getTotalInCart(): number {
+    let total = 0;
+    this.cart?.products?.forEach(value => {
+      if(value && value.quantity &&
+        value.product && value.product?.price &&
+        value.product?.stock?.initialQuantity){
+        total = total + (value.quantity * Math.floor(value.product?.price / value.product?.stock?.initialQuantity));
+      }
+    });
+    return total;
+  }
+
+  getTotalProductInCart(product: SellProduct | undefined ): number{
+    let totalProductInCart = 0;
+    if(product && product.quantity &&
+      product.product && product.product.price && product.product.stock?.initialQuantity){
+      totalProductInCart = (Math.floor(product.product.price / product.product.stock?.initialQuantity) * product.quantity)
+    }
+    return totalProductInCart;
+  }
+
+  removeProductFromCart(cartId: number | undefined, productId: number | undefined) : void {
+    if(cartId && productId){
+      alert('Remove item: ' + productId + ' from cart: ' + cartId);
+    }
+    else{
+      alert('No se puede eliminar el item, intentalo más tarde');
+    }
   }
 
   ngOnInit(): void {

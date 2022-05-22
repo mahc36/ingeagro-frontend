@@ -7,9 +7,30 @@
 
 
   <div class="cart-items" *ngIf="areThereProductsInCart(); else noItems">
-    <div *ngFor='let p of cart?.products ; let i = index'>
-      <div>{{p.product?.productType?.name}}</div>
-      <div>{{p.quantity}}</div>
+
+    <div class="cart-overview">
+      <div class="total-items">
+        <span class="title">Productos:&nbsp;</span>
+        <span class="value">{{cart?.products?.length}}</span>
+      </div>
+      <div class="cart-total-price">
+        <span class="title">TOTAL:&nbsp;</span>
+        <span class="value">{{getTotalInCart() | currency:'COP'}}</span>
+      </div>
+    </div>
+
+    <div class="cart-item" *ngFor='let p of cart?.products ; let i = index'>
+      <div class="item-start">
+        <div class="product-name">{{p.product?.productType?.name}}</div>
+        <div class="product-qty">{{p.quantity}}&nbsp;{{p?.product?.quantityType?.name}}</div>
+        <div class="total-product-in-cart">{{getTotalProductInCart(p) | currency:'COP'}}</div>
+        <div class="remove-product-container">
+          <button class="btn btn-warning" (click)="removeProductFromCart(cart?.id, p?.id)">Eliminar producto</button>
+        </div>
+      </div>
+      <div class="item-end">
+        <app-product-image></app-product-image>
+      </div>
     </div>
   </div>
 </div>
