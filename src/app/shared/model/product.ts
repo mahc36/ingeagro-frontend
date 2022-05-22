@@ -15,3 +15,9 @@ export interface ProductForm {
   product?: Product;
   sellerId?: number;
 }
+
+export interface SellProduct {
+  id?: number;
+  quantity?: number;
+  product?: Product;
+}

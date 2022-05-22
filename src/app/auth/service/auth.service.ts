@@ -6,7 +6,8 @@ import { Profile } from "../../shared/model/profile";
 import { environment } from "../../../environments/environment";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import {AlertService} from "../../shared/services/alert/alert.service";
+import { AlertService } from "../../shared/services/alert/alert.service";
+import { BuyerService } from "./buyer.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +15,44 @@ import {AlertService} from "../../shared/services/alert/alert.service";
 export class AuthService {
 
   private loginUrl: string = `${environment.apiURL}/user/login-profile`;
-
+  profile : Profile | undefined;
   private currentUserProfileSubject: BehaviorSubject<Profile> | undefined;
+  private currentGuestProfileSubject: BehaviorSubject<Profile> | undefined;
   public currentUserProfile: Observable<Profile> | undefined;
+  public currentGuestProfile: Observable<Profile> | undefined;
 
   constructor(private http: HttpClient,
               private router: Router,
               private modalService: NgbModal,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private buyerService: BuyerService) {
     const userProfile = localStorage.getItem('currentUserProfile');
     if(userProfile){
       this.currentUserProfileSubject = new BehaviorSubject<Profile>(JSON.parse(userProfile));
     }
     this.currentUserProfile = this.currentUserProfileSubject?.asObservable();
+
+    const guestProfile = localStorage.getItem('currentGuestProfile');
+    if(guestProfile){
+      this.currentGuestProfileSubject = new BehaviorSubject<Profile>(JSON.parse(guestProfile));
+    }
+    this.currentGuestProfile = this.currentGuestProfileSubject?.asObservable();
   }
 
   public get currentUserProfileValue(): Profile | undefined {
     return this.currentUserProfileSubject?.value;
   }
 
+  public get currentGuestProfileValue(): Profile | undefined {
+    return this.currentGuestProfileSubject?.value;
+  }
+
   public isLoggedIn(): boolean {
     return undefined != this.currentUserProfileValue;
+  }
+
+  public isThereAGuestUser(): boolean {
+    return undefined != this.currentGuestProfile;
   }
 
   loginUser(user: User): void {
@@ -59,6 +77,19 @@ export class AuthService {
     localStorage.removeItem('currentUserProfile');
     // @ts-ignore
     this.currentUserProfileSubject?.next(null);
+  }
+
+  getAGuestBuyer(): void {
+    this.buyerService.getAGuestUser().subscribe({
+      next: value => {
+        this.profile = {buyer : value};
+        localStorage.setItem('currentGuestProfile', JSON.stringify(this.profile));
+        this.currentGuestProfileSubject?.next(this.profile);
+      },
+      error: err => {
+        this.alertService.showDanger('ocurrió un error tratando de obtener un usuario invitado');
+      }
+    })
   }
 
 }

@@ -26,7 +26,7 @@ export class AddToCartComponent implements OnInit, OnDestroy {
               private alertService: AlertService,
               private formBuilder: FormBuilder) {
     this.addToCartForm = this.formBuilder.group({
-      qty: [0, [Validators.required, Validators.min(1), Validators.max(10)]]
+      qty: [0, [Validators.required, Validators.min(1), Validators.max(1)]]
     });
   }
 
@@ -35,6 +35,9 @@ export class AddToCartComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.submitted = true;
     if (this.addToCartForm.invalid) {
+      if(this.f.qty?.value > this.maxQty){
+        this.alertService.showWarning('Excede la cantidad máxima para este producto');
+      }
       return;
     }
     alert('ITs going to add something here');
@@ -51,6 +54,14 @@ export class AddToCartComponent implements OnInit, OnDestroy {
     return 0;
   }
 
+  calculatePrice(): number {
+    let priceByQtyType = this.getPriceByQtyType(this.product);
+    if(priceByQtyType && this.f.qty.value > 0){
+      return priceByQtyType * this.f.qty.value;
+    }
+    return 0;
+  }
+
   ngOnInit(): void {
     if(this.productId){
       this.productSubscription = this.productService.getProductById(this.productId).subscribe({
@@ -58,7 +69,6 @@ export class AddToCartComponent implements OnInit, OnDestroy {
           this.product = value;
           if(this.product && this.product.stock && this.product.stock.remainingQuantity){
             this.maxQty = this.product.stock.remainingQuantity;
-
             this.addToCartForm = this.formBuilder.group({
               qty: [0, [Validators.required, Validators.min(1), Validators.max(this.maxQty)]]
             });

@@ -18,6 +18,12 @@
       <small id="maxQtyHelp" class="helper form-text text-muted">Cantidad restante {{maxQty}}</small>
     </div>
   </form>
+
+
+  <div class="calculated-price" *ngIf="calculatePrice()">
+    {{calculatePrice() | currency:'COP'}}
+  </div>
+
 </div>
 
 <div class="modal-footer">
