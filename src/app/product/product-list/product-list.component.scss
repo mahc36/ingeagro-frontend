@@ -27,6 +27,8 @@
 
 .product-description{
   font-size: 12px;
+  height: 92px;
+  font-weight: 100;
 }
 
 .card-body{
@@ -50,4 +52,11 @@
 app-product-image{
   height: 260px;
   width: auto;
+}
+
+app-product-image{
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+  
 }
