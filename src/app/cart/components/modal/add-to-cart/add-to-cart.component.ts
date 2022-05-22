@@ -114,7 +114,12 @@ export class AddToCartComponent implements OnInit, OnDestroy {
           }
         },
         error: err => {
-          this.alertService.showDanger(err.error.error);
+          let errorMsg = 'No se pudo obtener producto, intentalo más tarde';
+          if(err?.error?.error){
+            errorMsg = err.error.error;
+          }
+          this.alertService.showDanger(errorMsg);
+          this.activeModal.close(errorMsg);
         }
       });
       let cart = localStorage.getItem('cart');
