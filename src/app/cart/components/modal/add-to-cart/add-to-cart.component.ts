@@ -54,6 +54,7 @@ export class AddToCartComponent implements OnInit, OnDestroy {
     this.cartService.addProductToCart(this.addToCartRequest).subscribe({
       next: value => {
         this.alertService.showSuccess('Producto agregado al carrito');
+        this.closeModal('producto agregado al carrito');
         this.miniCartToggle.setToggleMiniCart(true);
       },
       error: err => {
