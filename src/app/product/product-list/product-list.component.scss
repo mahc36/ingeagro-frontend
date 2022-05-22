@@ -1,5 +1,6 @@
 @import "../../../styling/mixins";
 @import "../../../styling/screen-variables";
+@import "../../../styling/color-variables";
 
 .products-list-container{
   padding: 40px 10px;
@@ -34,6 +35,8 @@
 
 .add-to-cart{
   margin-top: 15px;
+  background-color: $brand-color;
+  color: $white;
 }
 
 .product-price{

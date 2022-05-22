@@ -6,7 +6,7 @@
   background-color: #ffffff;
   min-height: 100vh;
   opacity: 0;
-  padding: 20px 30px 20px;
+  padding: 20px 30px 0;
   position: fixed;
   right: -100%;
   top: 0;
@@ -29,6 +29,28 @@
   -webkit-transition: opacity 0.3s ease-out, right 0.4s ease-out;
   -o-transition: opacity 0.3s ease-out, right 0.4s ease-out;
   transition: opacity 0.3s ease-out, right 0.4s ease-out;
+}
+
+.minicart-inner{
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 50px;
+}
+
+.cart-footer{
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  left: -30px;
+  width: calc(100% + 60px);
+
+  .go-to-checkout{
+    text-transform: uppercase;
+    height: 100%;
+    width: 100%;
+    background-color: $brand-color;
+    color: $white;
+  }
 }
 
 .modal-close{

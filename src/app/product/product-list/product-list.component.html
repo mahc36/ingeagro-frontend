@@ -10,7 +10,7 @@
           <span class="product-price">{{getPriceByQtyType(p) | currency:'COP'}}</span>
           <span class="product-type">&nbsp;por {{p?.quantityType?.name}}</span>
         </div>
-        <a class="btn btn-primary add-to-cart" (click)="showAddToCartModal(p?.id)">Agregar al carrito</a>
+        <a class="btn add-to-cart" (click)="showAddToCartModal(p?.id)">Agregar al carrito</a>
       </div>
     </div>
   </div>
