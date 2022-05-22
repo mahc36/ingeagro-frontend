@@ -1,1 +1,8 @@
-<img class="card-img-top" src="https://saborusa.com.pa/imagesmg/imagenes/5ff3e6a0b703f_potatoes-food-supermarket-agriculture-JG7QGNY.jpg" alt="producto">
+<ng-container [ngSwitch]="getProductType()">
+  <img class="product-image" *ngSwitchCase="'PAPA'" src="https://saborusa.com.pa/imagesmg/imagenes/5ff3e6a0b703f_potatoes-food-supermarket-agriculture-JG7QGNY.jpg" alt="papa">
+  <img class="product-image" *ngSwitchCase="'YUCA'" src="https://www.lanacion.com.py/resizer/qCAQpLG26szlNo7Njey90QpjBq0=/fit-in/1000x800/smart/cloudfront-us-east-1.images.arcpublishing.com/lanacionpy/J6OJDUBQRZADHDF2KL73KEMM7M.jpg" alt="yuca">
+  <img class="product-image" *ngSwitchCase="'TOMATE'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bright_red_tomato_and_cross_section02.jpg/1200px-Bright_red_tomato_and_cross_section02.jpg" alt="tomate">
+  <img class="product-image" *ngSwitchDefault src="https://media-es.almayadeen.net/content/images/404.png" alt="default">
+</ng-container>
+
+

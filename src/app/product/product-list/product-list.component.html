@@ -1,7 +1,7 @@
 <div class="products-list-container">
   <div class="product-container">
     <div *ngFor='let p of products ; let i = index' class="card product-card pricingTable green">
-      <app-product-image></app-product-image>
+      <app-product-image [productType]="p?.productType"></app-product-image>
       <div class="card-body">
         <div class="product-name">{{p?.productType?.name}}</div>
         <div class="product-description">{{p?.description}}</div>

@@ -30,13 +30,13 @@
           </div>
         </div>
         <div class="item-end">
-          <app-product-image></app-product-image>
+          <app-product-image [productType]="p?.product?.productType"></app-product-image>
         </div>
       </div>
     </div>
 
     <div class="cart-footer">
-      <button class="go-to-checkout btn">Finalizar compra</button>
+      <button class="go-to-checkout btn" (click)="checkout()">Finalizar compra</button>
     </div>
 
   </div>

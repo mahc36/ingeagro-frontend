@@ -5,7 +5,7 @@ import { AuthService } from "../../../auth/service/auth.service";
 import { Profile } from "../../../shared/model/profile";
 import { Cart } from "../../../shared/model/cart";
 import { AlertService } from "../../../shared/services/alert/alert.service";
-import {Product, SellProduct} from "../../../shared/model/product";
+import { Product, SellProduct } from "../../../shared/model/product";
 
 @Component({
   selector: 'app-minicart',
@@ -52,6 +52,10 @@ export class MinicartComponent implements OnInit {
       totalProductInCart = (Math.floor(product.product.price / product.product.stock?.initialQuantity) * product.quantity)
     }
     return totalProductInCart;
+  }
+
+  checkout(): void {
+    alert('Finalizando compra');
   }
 
   removeProductFromCart(cartId: number | undefined, productId: number | undefined) : void {

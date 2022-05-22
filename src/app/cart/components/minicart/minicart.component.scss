@@ -79,6 +79,12 @@
   @include justify-content(space-between);
 }
 
+.cart-header{
+  .title{
+    font-size: 18px;
+  }
+}
+
 .title{
   color: black;
   text-transform: uppercase;
@@ -137,4 +143,13 @@
   margin: 5px 0;
   font-weight: 100;
   font-size: 14px;
+}
+
+app-product-image{
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100px;
+  height: 100px;
 }
