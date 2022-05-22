@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="cart-footer">
+    <div class="cart-footer" *ngIf="areThereProductsInCart()">
       <button class="go-to-checkout btn" (click)="checkout()">Finalizar compra</button>
     </div>
 

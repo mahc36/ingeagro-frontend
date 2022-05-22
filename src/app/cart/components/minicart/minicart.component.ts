@@ -6,6 +6,7 @@ import { Profile } from "../../../shared/model/profile";
 import { Cart } from "../../../shared/model/cart";
 import { AlertService } from "../../../shared/services/alert/alert.service";
 import { Product, SellProduct } from "../../../shared/model/product";
+import {RemoveItemFromCartRequest} from "../../../shared/model/requests";
 
 @Component({
   selector: 'app-minicart',
@@ -18,6 +19,7 @@ export class MinicartComponent implements OnInit {
 
   profile: Profile | undefined;
   cart: Cart | undefined;
+  removeRequest: RemoveItemFromCartRequest | undefined;
 
   constructor(private toggleMiniCartService: ToggleminicartService,
               private cartService: CartService,
@@ -60,10 +62,28 @@ export class MinicartComponent implements OnInit {
 
   removeProductFromCart(cartId: number | undefined, productId: number | undefined) : void {
     if(cartId && productId){
-      alert('Remove item: ' + productId + ' from cart: ' + cartId);
+      this.removeRequest = undefined;
+      this.removeRequest = {
+        cartId,
+        sellProductId : productId
+      }
+      this.cartService.removeProductFormCart(this.removeRequest).subscribe(
+        value => {
+          this.cart = value;
+          this.alertService.showSuccess('Producto eliminado');
+        },
+        error => {
+          if(error?.error?.error){
+            this.alertService.showDanger(error.error.error);
+          }
+          else{
+            this.alertService.showDanger('No se puede eliminar el item, intentalo más tarde');
+          }
+        }
+      );
     }
     else{
-      alert('No se puede eliminar el item, intentalo más tarde');
+      this.alertService.showDanger('No se puede eliminar el item, intentalo más tarde');
     }
   }
 

@@ -4,3 +4,8 @@ export interface AddToCartRequest {
   productId?: number;
   buyerId?: number;
 }
+
+export interface RemoveItemFromCartRequest{
+  cartId?: number;
+  sellProductId?: number;
+}

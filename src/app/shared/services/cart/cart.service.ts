@@ -3,7 +3,7 @@ import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Cart} from "../../model/cart";
-import {AddToCartRequest} from "../../model/requests";
+import {AddToCartRequest, RemoveItemFromCartRequest} from "../../model/requests";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class CartService {
   private getANewCartUrl: string = `${environment.apiURL}/cart/getANewCart`;
   private addProductToCartUrl: string = `${environment.apiURL}/cart/addProduct`;
   private getACartUrl: string = `${environment.apiURL}/cart/getACart`;
+  private removeProductFromCartUrl: string = `${environment.apiURL}/cart/removeItem`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,6 +27,10 @@ export class CartService {
 
   public getACartById(cartId: number) : Observable<Cart> {
     return this.httpClient.get<Cart>(`${this.getACartUrl}?cartId=${cartId}`);
+  }
+
+  public removeProductFormCart(request: RemoveItemFromCartRequest) : Observable<Cart> {
+    return this.httpClient.post<Cart>(this.removeProductFromCartUrl, request);
   }
 
 }
