@@ -31,3 +31,22 @@
   text-align: center;
   font-size: 14px;
 }
+
+.product-overview{
+  @include flexbox;
+  @include justify-content(space-between);
+  .product-start{
+    width: 68%;
+  }
+  .product-end{
+    @include flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+
+    width: 30%;
+    app-product-image{
+      max-width: 120px;
+      max-height: 120px;
+    }
+  }
+}
