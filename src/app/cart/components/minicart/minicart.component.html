@@ -38,10 +38,10 @@
     <div class="cart-footer" *ngIf="areThereProductsInCart()">
       <button class="go-to-checkout btn" (click)="checkout()">Finalizar compra</button>
     </div>
-
   </div>
-
 </div>
+
+<div class="mini-cart-overlay" *ngIf="expanded" (click)="closeMiniCart()"></div>
 
 
 <ng-template #noItems>

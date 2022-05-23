@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ToggleminicartService } from "../../services/toggleminicart.service";
 import { CartService } from "../../../shared/services/cart/cart.service";
 import { AuthService } from "../../../auth/service/auth.service";
 import { Profile } from "../../../shared/model/profile";
 import { Cart } from "../../../shared/model/cart";
 import { AlertService } from "../../../shared/services/alert/alert.service";
-import { Product, SellProduct } from "../../../shared/model/product";
-import {RemoveItemFromCartRequest} from "../../../shared/model/requests";
+import { SellProduct } from "../../../shared/model/product";
+import { RemoveItemFromCartRequest } from "../../../shared/model/requests";
 
 @Component({
   selector: 'app-minicart',
   templateUrl: './minicart.component.html',
   styleUrls: ['./minicart.component.scss']
 })
-export class MinicartComponent implements OnInit {
+export class MinicartComponent implements OnInit, AfterViewChecked {
 
   expanded = false;
 
@@ -28,6 +28,7 @@ export class MinicartComponent implements OnInit {
 
   public closeMiniCart() : void {
     this.expanded = false;
+    document.body.style.overflow = 'auto';
   }
 
   areThereProductsInCart(): boolean {
@@ -146,5 +147,12 @@ export class MinicartComponent implements OnInit {
         }
       })
     }
+  }
+
+  ngAfterViewChecked(): void {
+    if(this.expanded){
+      document.body.style.overflow = 'hidden';
+    }
+
   }
 }

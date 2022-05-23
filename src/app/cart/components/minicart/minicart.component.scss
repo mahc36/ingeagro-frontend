@@ -153,3 +153,24 @@ app-product-image{
   width: 100px;
   height: 100px;
 }
+
+.mini-cart-overlay{
+  background: rgba(0, 0, 0, 0.4);
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  -webkit-transition: opacity .2s, visibility 0ms linear .2s;
+  -o-transition: opacity .2s, visibility 0ms linear .2s;
+  transition: opacity .2s, visibility 0ms linear .2s;
+  opacity: 1;
+  visibility: visible;
+  z-index: 106;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  cursor: pointer;
+}
+
