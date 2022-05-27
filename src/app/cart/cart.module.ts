@@ -5,6 +5,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AddToCartComponent } from './components/modal/add-to-cart/add-to-cart.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import {ProductModule} from "../product/product.module";
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { CartConfirmationComponent } from './components/cart-confirmation/cart-confirmation.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import {ProductModule} from "../product/product.module";
     ],
     declarations: [
         MinicartComponent,
-        AddToCartComponent
+        AddToCartComponent,
+        CartSummaryComponent,
+        CartConfirmationComponent
     ]
 })
 export class CartModule{

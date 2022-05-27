@@ -1,0 +1,18 @@
+@import "src/styling/mixins";
+@import "src/styling/color-variables";
+
+.cart-confirmation-container{
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+  margin: 30px 60px;
+}
+
+.overview{
+  text-align: center;
+}
+
+p{
+  margin-top: 20px;
+  font-size: 16px;
+}

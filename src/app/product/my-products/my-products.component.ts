@@ -24,6 +24,13 @@ export class MyProductsComponent implements OnInit, OnDestroy {
     this.loadAllProducts();
   }
 
+  getPriceByQtyType(p: Product | undefined): number | undefined {
+    if(p && p.price && p.stock && p.stock.initialQuantity){
+      return Math.floor((p?.price) / (p?.stock?.initialQuantity));
+    }
+    return 0;
+  }
+
   private loadAllProducts() {
     const sellerId = this.profile?.seller?.id;
 

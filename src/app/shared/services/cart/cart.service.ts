@@ -14,6 +14,7 @@ export class CartService {
   private addProductToCartUrl: string = `${environment.apiURL}/cart/addProduct`;
   private getACartUrl: string = `${environment.apiURL}/cart/getACart`;
   private removeProductFromCartUrl: string = `${environment.apiURL}/cart/removeItem`;
+  private buyCartUrl: string = `${environment.apiURL}/cart/buy`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -31,6 +32,10 @@ export class CartService {
 
   public removeProductFormCart(request: RemoveItemFromCartRequest) : Observable<Cart> {
     return this.httpClient.post<Cart>(this.removeProductFromCartUrl, request);
+  }
+
+  public finishBuy(cartId: number): Observable<Cart> {
+    return this.httpClient.post<Cart>(this.buyCartUrl, { cartId } );
   }
 
 }

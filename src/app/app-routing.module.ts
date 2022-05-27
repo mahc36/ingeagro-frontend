@@ -7,6 +7,8 @@ import { MyProductsComponent } from "./product/my-products/my-products.component
 import { ProductListComponent } from "./product/product-list/product-list.component";
 import {ForbiddenComponent} from "./shared/components/forbidden/forbidden.component";
 import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
+import {CartSummaryComponent} from "./cart/components/cart-summary/cart-summary.component";
+import {CartConfirmationComponent} from "./cart/components/cart-confirmation/cart-confirmation.component";
 
 const routes: Routes = [
   {
@@ -30,7 +32,15 @@ const routes: Routes = [
       {
         path: 'list',
         component: ProductListComponent,
-      }
+      },
+      {
+        path: 'cart-summary',
+        component: CartSummaryComponent,
+      },
+      {
+        path: 'cart-confirmation',
+        component: CartConfirmationComponent,
+      },
     ]
   },
   { path: 'not-found', component: NotFoundComponent },

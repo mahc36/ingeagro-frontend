@@ -3,7 +3,9 @@ import { Event, NavigationEnd, NavigationError, NavigationStart, Router } from "
 import { AlertService } from "./shared/services/alert/alert.service";
 import { ToggleminicartService } from "./cart/services/toggleminicart.service";
 import { Subscription } from "rxjs";
-import {AuthService} from "./auth/service/auth.service";
+import { AuthService } from "./auth/service/auth.service";
+import { CartService } from "./shared/services/cart/cart.service";
+import { Profile } from "./shared/model/profile";
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,6 @@ export class AppComponent implements OnInit, OnDestroy{
   title = 'ingeagro';
 
   routeSubscription : Subscription | undefined;
-
 
   constructor(private router: Router,
               private alertService: AlertService,

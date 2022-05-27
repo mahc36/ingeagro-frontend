@@ -1,0 +1,37 @@
+<div class="cart-overview">
+  <div class="title">
+    <h1>Resumen de la compra</h1>
+  </div>
+
+  <div class="cart-summary-container">
+    <div class="cart-item-container">
+      <div class="cart-item" *ngFor='let p of cart?.products ; let i = index'>
+        <div class="item-image">
+          <app-product-image [productType]="p.product?.productType"></app-product-image>
+        </div>
+        <div class="item-details">
+          <div class="item-title">{{p.product?.productType?.name}}</div>
+          <div class="item-qty">{{p.quantity}} por {{p.product?.quantityType?.name}}</div>
+          <div class="item-price">{{getTotalProductInCart(p) | currency:'COP'}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary-details">
+      <div class="inner-item-details">
+        <h3 class="details">Detalles</h3>
+        <div class="is">
+          <span class="t">Cantidad productos:&nbsp;</span>
+          <span class="v">{{cart?.products?.length}}</span>
+        </div>
+        <div class="is">
+          <span class="t">Total:&nbsp;</span>
+          <span class="v">{{getTotalInCart() | currency:'COP'}}</span>
+        </div>
+        <button class="go-to-checkout btn" (click)="buyCart()">Finalizar compra</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>

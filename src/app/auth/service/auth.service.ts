@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AlertService } from "../../shared/services/alert/alert.service";
 import { BuyerService } from "./buyer.service";
+import {CartService} from "../../shared/services/cart/cart.service";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,8 @@ export class AuthService {
               private router: Router,
               private modalService: NgbModal,
               private alertService: AlertService,
-              private buyerService: BuyerService) {
+              private buyerService: BuyerService,
+              private cartService: CartService) {
     const userProfile = localStorage.getItem('currentUserProfile');
     if(userProfile){
       this.currentUserProfileSubject = new BehaviorSubject<Profile>(JSON.parse(userProfile));
@@ -85,11 +87,25 @@ export class AuthService {
         this.profile = {buyer : value};
         localStorage.setItem('currentGuestProfile', JSON.stringify(this.profile));
         this.currentGuestProfileSubject?.next(this.profile);
+        if(!localStorage.getItem('cart')){
+          this.getANewCartForGuest();
+        }
       },
       error: err => {
         this.alertService.showDanger('ocurrió un error tratando de obtener un usuario invitado');
       }
     })
+  }
+
+  public getANewCartForGuest() {
+    this.cartService.getANewCart(this.profile?.buyer?.id).subscribe({
+      next: value => {
+        localStorage.setItem('cart', JSON.stringify(value));
+      },
+      error: err => {
+        this.alertService.showDanger('Ocurrió un problema al tratar de crear un guest cart');
+      }
+    });
   }
 
 }

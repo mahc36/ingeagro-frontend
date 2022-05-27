@@ -7,6 +7,7 @@ import { Cart } from "../../../shared/model/cart";
 import { AlertService } from "../../../shared/services/alert/alert.service";
 import { SellProduct } from "../../../shared/model/product";
 import { RemoveItemFromCartRequest } from "../../../shared/model/requests";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-minicart',
@@ -17,14 +18,14 @@ export class MinicartComponent implements OnInit, AfterViewChecked {
 
   expanded = false;
 
-  profile: Profile | undefined;
   cart: Cart | undefined;
   removeRequest: RemoveItemFromCartRequest | undefined;
 
   constructor(private toggleMiniCartService: ToggleminicartService,
               private cartService: CartService,
               private authService: AuthService,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private router: Router) { }
 
   public closeMiniCart() : void {
     this.expanded = false;
@@ -57,8 +58,9 @@ export class MinicartComponent implements OnInit, AfterViewChecked {
     return totalProductInCart;
   }
 
-  checkout(): void {
-    alert('Finalizando compra');
+  goToCartOverview(): void {
+    document.body.style.overflow = 'auto';
+    this.router.navigate(['/cart-summary']);
   }
 
   removeProductFromCart(cartId: number | undefined, productId: number | undefined) : void {
@@ -90,29 +92,6 @@ export class MinicartComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.miniCartToggle();
-    if(this.authService.isLoggedIn()){
-      // retrieve cart o get a new one
-      this.profile = this.authService.currentUserProfileValue;
-    }
-    else{
-      // retrieve a new cart
-      this.profile = this.authService.currentGuestProfileValue;
-      if(!this.cart && !localStorage.getItem('cart')){
-        this.getANewCartForGuest();
-      }
-    }
-  }
-
-  private getANewCartForGuest() {
-    this.cartService.getANewCart(this.profile?.buyer?.id).subscribe({
-      next: value => {
-        this.cart = value;
-        localStorage.setItem('cart', JSON.stringify(this.cart));
-      },
-      error: err => {
-        this.alertService.showDanger('Ocurrió un problema al trater de crear un guest cart');
-      }
-    });
   }
 
   private miniCartToggle() {
@@ -153,6 +132,5 @@ export class MinicartComponent implements OnInit, AfterViewChecked {
     if(this.expanded){
       document.body.style.overflow = 'hidden';
     }
-
   }
 }
