@@ -25,11 +25,19 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.pSubscription = this.productService.getAllProducts().subscribe({
       next: value => {
         this.products = value;
+        // this.products = this.products.filter(p => this.isThereRemainingQty(p));
       },
       error: err => {
         this.alertService.showDanger('ocurrio un problema trayendo todos los productos');
       }
     });
+  }
+
+  isThereProducts(): boolean{
+    if(this.products && this.products.length){
+        return this.products?.length > 0;
+    }
+    return false;
   }
 
   getPriceByQtyType(p: Product | undefined): number | undefined {

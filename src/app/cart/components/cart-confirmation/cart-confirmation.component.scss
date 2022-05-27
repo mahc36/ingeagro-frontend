@@ -1,5 +1,6 @@
 @import "src/styling/mixins";
 @import "src/styling/color-variables";
+@import "/src/styling/buttons";
 
 .cart-confirmation-container{
   @include flexbox;
@@ -15,4 +16,14 @@
 p{
   margin-top: 20px;
   font-size: 16px;
+}
+
+.go-to-checkout{
+  margin-top: 20px;
+  text-transform: uppercase;
+  height: 100%;
+  width: 100%;
+  background-color: $brand-color;
+  color: $white;
+  max-width: 300px;
 }

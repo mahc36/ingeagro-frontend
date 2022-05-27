@@ -24,6 +24,14 @@ export class MyProductsComponent implements OnInit, OnDestroy {
     this.loadAllProducts();
   }
 
+  //TODO . this logic should be retrieved from backend
+  isSold(p: Product): boolean {
+    if(p && p.stock){
+      return p.stock.remainingQuantity == 0;
+    }
+    return false;
+  }
+
   getPriceByQtyType(p: Product | undefined): number | undefined {
     if(p && p.price && p.stock && p.stock.initialQuantity){
       return Math.floor((p?.price) / (p?.stock?.initialQuantity));

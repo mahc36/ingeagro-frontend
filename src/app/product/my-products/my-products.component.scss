@@ -6,6 +6,17 @@
   padding: 40px 10px;
 }
 
+.badge{
+  display: none;
+  position: relative;
+  width: auto;
+  padding: 10px;
+  &.success{
+    background-color: $brand-color;
+    color: $white;
+  }
+}
+
 .product-container{
   @include flexbox;
   @include flex-wrap(wrap);
@@ -13,10 +24,17 @@
 }
 
 .product-card{
+  position: relative;
   width: 33%;
   margin-left: 0.3%;
   padding: 5px;
   margin-bottom: 10px;
+  &.sold{
+    opacity: 0.5;
+    .badge{
+      display: block;
+    }
+  }
 }
 
 .product-name{

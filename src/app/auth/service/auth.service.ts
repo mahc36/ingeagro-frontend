@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../shared/model/user";
 import { HttpClient } from "@angular/common/http";
@@ -13,7 +13,7 @@ import {CartService} from "../../shared/services/cart/cart.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy{
 
   private loginUrl: string = `${environment.apiURL}/user/login-profile`;
   profile : Profile | undefined;
@@ -28,14 +28,22 @@ export class AuthService {
               private alertService: AlertService,
               private buyerService: BuyerService,
               private cartService: CartService) {
+    this.user();
+
+    this.guestUser();
+  }
+
+  private user() {
     const userProfile = localStorage.getItem('currentUserProfile');
-    if(userProfile){
+    if (userProfile) {
       this.currentUserProfileSubject = new BehaviorSubject<Profile>(JSON.parse(userProfile));
     }
     this.currentUserProfile = this.currentUserProfileSubject?.asObservable();
+  }
 
+  private guestUser() {
     const guestProfile = localStorage.getItem('currentGuestProfile');
-    if(guestProfile){
+    if (guestProfile) {
       this.currentGuestProfileSubject = new BehaviorSubject<Profile>(JSON.parse(guestProfile));
     }
     this.currentGuestProfile = this.currentGuestProfileSubject?.asObservable();
@@ -54,15 +62,22 @@ export class AuthService {
   }
 
   public isThereAGuestUser(): boolean {
-    return undefined != this.currentGuestProfile;
+    return undefined != this.currentGuestProfileValue;
   }
 
   loginUser(user: User): void {
     this.login(user).subscribe({
       next : value => {
+        localStorage.removeItem('currentGuestProfile');
+        localStorage.removeItem('cart');
+        // @ts-ignore
+        this.currentGuestProfileSubject?.next(null);
         localStorage.setItem('currentUserProfile', JSON.stringify(value));
+        this.profile = value;
         this.currentUserProfileSubject?.next(value);
         this.modalService.dismissAll('login');
+        // TODO - get a new cart or restore the one in the session
+        this.getANewCartForProfile();
         window.location.reload();
       },
       error: err => {
@@ -79,6 +94,8 @@ export class AuthService {
     localStorage.removeItem('currentUserProfile');
     // @ts-ignore
     this.currentUserProfileSubject?.next(null);
+    localStorage.removeItem('cart');
+    this.getAGuestBuyer();
   }
 
   getAGuestBuyer(): void {
@@ -88,7 +105,7 @@ export class AuthService {
         localStorage.setItem('currentGuestProfile', JSON.stringify(this.profile));
         this.currentGuestProfileSubject?.next(this.profile);
         if(!localStorage.getItem('cart')){
-          this.getANewCartForGuest();
+          this.getANewCartForProfile();
         }
       },
       error: err => {
@@ -97,15 +114,26 @@ export class AuthService {
     })
   }
 
-  public getANewCartForGuest() {
+  public getANewCartForProfile() {
+    if(this.isLoggedIn()){
+      this.profile = this.currentUserProfileSubject?.value
+    }
+    else if(this.isThereAGuestUser()){
+      this.profile = this.currentGuestProfileSubject?.value;
+    }
     this.cartService.getANewCart(this.profile?.buyer?.id).subscribe({
       next: value => {
         localStorage.setItem('cart', JSON.stringify(value));
       },
       error: err => {
-        this.alertService.showDanger('Ocurrió un problema al tratar de crear un guest cart');
+        this.alertService.showDanger('Ocurrió un problema al tratar de crear un cart');
       }
     });
   }
+
+  ngOnDestroy(): void {
+    alert('On destroy');
+  }
+
 
 }

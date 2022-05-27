@@ -97,3 +97,17 @@
   background-color: $brand-color;
   color: $white;
 }
+
+.no-products{
+  width: 100%;
+  padding: 30px 6px;
+  text-align: center;
+}
+
+.np-container{
+  text-align: center;
+  padding: 30px 60px;
+  button{
+    max-width: 300px;
+  }
+}

@@ -107,15 +107,11 @@ export class MinicartComponent implements OnInit, AfterViewChecked {
 
   private refreshCart() {
     let cartId = 0;
-    if (this.cart) {
-      cartId = this.cart?.id ? this.cart?.id : 0;
-    } else {
-      let cart = localStorage.getItem('cart');
-      if (cart) {
-        this.cart = JSON.parse(cart);
-      }
-      cartId = this.cart?.id ? this.cart?.id : 0;
+    let cart = localStorage.getItem('cart');
+    if (cart) {
+      this.cart = JSON.parse(cart);
     }
+    cartId = this.cart?.id ? this.cart?.id : 0;
     if (cartId > 0) {
       this.cartService.getACartById(cartId).subscribe({
         next: value1 => {

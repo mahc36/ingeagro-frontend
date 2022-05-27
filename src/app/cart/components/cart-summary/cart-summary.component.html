@@ -1,4 +1,4 @@
-<div class="cart-overview">
+<div class="cart-overview" *ngIf="isThereProductsOnCar(); else noProducts">
   <div class="title">
     <h1>Resumen de la compra</h1>
   </div>
@@ -32,6 +32,11 @@
       </div>
     </div>
   </div>
-
-
 </div>
+
+<ng-template #noProducts>
+  <div class="np-container">
+    <h1 class="no-products">No hay productos en el carro</h1>
+    <button class="go-to-checkout btn" (click)="goToList()">Continuar comprando</button>
+  </div>
+</ng-template>

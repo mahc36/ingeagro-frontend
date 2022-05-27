@@ -68,10 +68,14 @@ export class AddProductComponent implements OnInit, OnDestroy {
       next: value => {
         this.productForm.reset();
         this.submitted = false;
-        alert('Producto agregado');
+        this.alertService.showSuccess('Producto agregado');
       },
       error: err => {
-        alert(err.error.error);
+        if(err.error.error()){
+          this.alertService.showDanger(err.error.error());
+        }else{
+          this.alertService.showDanger('Ocurrió un problema al agregar un producto');
+        }
       }
     });
   }

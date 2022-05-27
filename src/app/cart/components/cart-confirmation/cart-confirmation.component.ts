@@ -19,6 +19,10 @@ export class CartConfirmationComponent implements OnInit {
               private alertService: AlertService,
               private authService: AuthService) { }
 
+  goToProductList(): void {
+    this.router.navigate(['/list']);
+  }
+
   ngOnInit(): void {
     let cart = localStorage.getItem('cart');
     if (cart) {
@@ -28,12 +32,7 @@ export class CartConfirmationComponent implements OnInit {
       this.cartService.finishBuy(this.cart?.id).subscribe({
         next: value => {
           localStorage.removeItem('cart');
-          if(this.authService.isLoggedIn()){
-            // TODO - create a cart for this use
-          }
-          else if (this.authService.isThereAGuestUser()){
-            this.authService.getANewCartForGuest();
-          }
+          this.authService.getANewCartForProfile();
         },
         error: err => {
           if(err?.error?.error){

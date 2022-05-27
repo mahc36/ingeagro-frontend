@@ -1,5 +1,5 @@
 <div class="products-list-container">
-  <div class="product-container">
+  <div class="product-container" *ngIf="isThereProducts(); else noProducts">
     <div *ngFor='let p of products ; let i = index' class="card product-card pricingTable green">
       <app-product-image [productType]="p?.productType"></app-product-image>
       <div class="card-body">
@@ -14,4 +14,8 @@
       </div>
     </div>
   </div>
+
+  <ng-template #noProducts>
+    <h1 class="no-products">No hay productos</h1>
+  </ng-template>
 </div>

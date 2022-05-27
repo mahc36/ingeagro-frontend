@@ -51,6 +51,10 @@ export class AddToCartComponent implements OnInit, OnDestroy {
       return;
     }
     this.createRequestAddToCart();
+    let cart = localStorage.getItem('cart');
+    if (!cart) {
+      this.authService.getANewCartForProfile();
+    }
     this.cartService.addProductToCart(this.addToCartRequest).subscribe({
       next: value => {
         this.alertService.showSuccess('Producto agregado al carrito');

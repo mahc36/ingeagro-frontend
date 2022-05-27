@@ -58,5 +58,9 @@ app-product-image{
   @include flexbox;
   @include justify-content(center);
   @include align-items(center);
-  
+}
+
+.no-products{
+  text-align: center;
+  width: 100%;
 }

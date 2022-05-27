@@ -61,9 +61,19 @@ export class CartSummaryComponent implements OnInit, OnDestroy {
   }
 
   buyCart(): void{
-    this.router.navigate(['cart-confirmation'])
+    this.router.navigate(['/cart-confirmation'])
   }
 
+  goToList(): void {
+    this.router.navigate(['/list'])
+  }
+
+  isThereProductsOnCar(): boolean {
+    if(this.cart && this.cart.products){
+      return this.cart.products.length > 0
+    }
+    return false;
+  }
 
   ngOnDestroy(): void {
     this.cartSubscription?.unsubscribe();
