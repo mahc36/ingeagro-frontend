@@ -5,6 +5,9 @@
       <app-product-image [productType]="p?.productType"></app-product-image>
       <div class="card-body">
         <div class="product-name">{{p?.productType?.name}}</div>
+        <div class="remaining-qty">
+          {{p?.stock?.remainingQuantity}}&nbsp;{{p?.quantityType?.name}}&nbsp;restantes
+        </div>
         <div class="product-description">{{p?.description}}</div>
         <hr>
         <div>
