@@ -4,6 +4,9 @@ import {Product} from "../../shared/model/product";
 import {AuthService} from "../../auth/service/auth.service";
 import {Profile} from "../../shared/model/profile";
 import {Subscription} from "rxjs";
+import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {AddToCartComponent} from "../../cart/components/modal/add-to-cart/add-to-cart.component";
+import {EditProductComponent} from "../edit-product/edit-product.component";
 
 @Component({
   selector: 'app-my-products',
@@ -14,14 +17,56 @@ export class MyProductsComponent implements OnInit, OnDestroy {
 
   public products: Product[] = [];
   profile : Profile | undefined;
+  closeResult: string | undefined;
 
   pSubscription : Subscription | undefined;
 
-  constructor(private productService: ProductService, private authService: AuthService) { }
+  constructor(private productService: ProductService,
+              private authService: AuthService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.profile = this.authService.currentUserProfileValue;
     this.loadAllProducts();
+  }
+
+  showEditProductModal(productId: number | undefined): void {
+    let modalRef: NgbModalRef;
+    const options = {
+      ariaLabelledBy: 'modal-basic-title',
+      windowClass: 'app-open-modal logout-modal',
+      backdropClass: 'light-blue-backdrop',
+      size: 'lg',
+      centered: true,
+      scrollable: true
+    };
+    modalRef = this.modalService.open(EditProductComponent, options);
+    modalRef.componentInstance.productId = productId;
+
+    modalRef.result.then((result) => {
+      this.closeResult = `Cerrado con: ${result}`;
+      this.loadAllProducts();
+    }, (reason) => {
+      this.loadAllProducts();
+      this.closeResult = `Cerrado ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'Presionando Escape';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'Presionando afuera del recuadro';
+    } else {
+      return  `con: ${reason}`;
+    }
+  }
+
+  areThereProducts(): boolean {
+    if(this.products && this.products.length > 0){
+      return true;
+    }
+    return false;
   }
 
   //TODO . this logic should be retrieved from backend

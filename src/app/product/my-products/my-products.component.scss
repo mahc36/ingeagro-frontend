@@ -82,3 +82,13 @@ app-product-image{
   @include align-items(center);
 
 }
+
+.no-products{
+  padding: 20px;
+  width: 100%;
+  min-height: 50vh;
+  text-align: center;
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+}

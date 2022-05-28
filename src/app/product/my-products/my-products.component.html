@@ -1,4 +1,4 @@
-<div class="products-list-container">
+<div class="products-list-container" *ngIf="areThereProducts(); else noProducts">
   <div class="product-container">
     <div *ngFor='let p of products ; let i = index' class="card product-card pricingTable green" [ngClass]="{'sold': isSold(p)}">
       <div class="badge success">Vendido</div>
@@ -14,8 +14,14 @@
           <span class="product-price">{{getPriceByQtyType(p) | currency:'COP'}}</span>
           <span class="product-type">&nbsp;por {{p?.quantityType?.name}}</span>
         </div>
-        <a class="btn add-to-cart">Editar</a>
+        <a class="btn add-to-cart" (click)="showEditProductModal(p?.id)">Editar</a>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #noProducts>
+  <div class="no-products">
+    <h1>No tienes productos</h1>
+  </div>
+</ng-template>

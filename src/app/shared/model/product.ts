@@ -14,6 +14,7 @@ export interface Product{
 export interface ProductForm {
   product?: Product;
   sellerId?: number;
+  updateProduct?: boolean;
 }
 
 export interface SellProduct {

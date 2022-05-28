@@ -5,9 +5,10 @@ import { ProductListComponent } from './product-list/product-list.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import { ProductImageComponent } from './product-image/product-image.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 @NgModule({
-  declarations: [AddProductComponent, MyProductsComponent, ProductListComponent, ProductImageComponent],
+  declarations: [AddProductComponent, MyProductsComponent, ProductListComponent, ProductImageComponent, EditProductComponent],
   exports: [
     ProductImageComponent
   ],
