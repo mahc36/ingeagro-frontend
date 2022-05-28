@@ -7,6 +7,7 @@ import {Subscription} from "rxjs";
 import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {AddToCartComponent} from "../../cart/components/modal/add-to-cart/add-to-cart.component";
 import {EditProductComponent} from "../edit-product/edit-product.component";
+import {AlertService} from "../../shared/services/alert/alert.service";
 
 @Component({
   selector: 'app-my-products',
@@ -23,11 +24,27 @@ export class MyProductsComponent implements OnInit, OnDestroy {
 
   constructor(private productService: ProductService,
               private authService: AuthService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.profile = this.authService.currentUserProfileValue;
     this.loadAllProducts();
+  }
+
+  removeProduct(productId: number | undefined): void {
+    if(!productId){
+      return;
+    }
+   this.productService.removeProduct(productId).subscribe({
+     next: value => {
+       this.alertService.showSuccess('Producto eliminado con éxito');
+       this.loadAllProducts();
+     },
+     error: err => {
+       this.alertService.showDanger('Ocurrió un problema al tratar de eliminar un producto');
+     }
+   })
   }
 
   showEditProductModal(productId: number | undefined): void {
@@ -92,7 +109,7 @@ export class MyProductsComponent implements OnInit, OnDestroy {
         this.products = value;
       },
       error: err => {
-        alert('Ocurrio un error tratando de obtener los productos');
+        this.alertService.showDanger('Ocurrio un error tratando de obtener los productos');
       }
     });
   }

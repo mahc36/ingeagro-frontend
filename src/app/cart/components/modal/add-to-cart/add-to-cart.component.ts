@@ -62,7 +62,12 @@ export class AddToCartComponent implements OnInit, OnDestroy {
         this.miniCartToggle.setToggleMiniCart(true);
       },
       error: err => {
-        this.alertService.showDanger('Ocurrio un problema tratando de agregar el producto al carrito');
+        if(err.error.error){
+          this.alertService.showDanger(err.error.error);
+        }
+        else{
+          this.alertService.showDanger('Ocurrio un problema tratando de agregar el producto al carrito');
+        }
       }
     });
   }

@@ -8,6 +8,8 @@ import { ProductType } from "../../shared/model/product-type";
 import { QuantityType } from "../../shared/model/quantity-type";
 import { Subscription } from "rxjs";
 import { Stock } from "../../shared/model/stock";
+import {Profile} from "../../shared/model/profile";
+import {AuthService} from "../../auth/service/auth.service";
 
 @Component({
   selector: 'app-edit-product',
@@ -28,6 +30,8 @@ export class EditProductComponent implements OnInit {
   qtSubscription : Subscription | undefined;
   pSubscription : Subscription | undefined;
 
+  profile : Profile | undefined;
+
   stock: Stock | undefined;
   quantityType: QuantityType | undefined;
   productType: ProductType | undefined;
@@ -37,7 +41,8 @@ export class EditProductComponent implements OnInit {
   constructor(private activeModal: NgbActiveModal,
               private productService: ProductService,
               private alertService: AlertService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private authService: AuthService) {
     this.productForm = formBuilder.group({
       price: ['', Validators.required],
       stock: ['', Validators.required],
@@ -87,7 +92,8 @@ export class EditProductComponent implements OnInit {
   private createProductFormApi() {
     this.productFormApi = {
       product: this.product,
-      updateProduct: true
+      updateProduct: true,
+      sellerId: this.profile?.seller?.id
     }
   }
 
@@ -126,6 +132,7 @@ export class EditProductComponent implements OnInit {
     if(this.productId > 0){
       // Llamado en cadena
       this.loadProductTypes();
+      this.profile = this.authService.currentUserProfileValue;
     }
   }
 

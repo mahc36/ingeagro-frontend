@@ -61,6 +61,10 @@
   margin-top: 15px;
   background-color: $brand-color;
   color: $white;
+  &.remove{
+    background-color: red;
+    margin-left: 10px;
+  }
 }
 
 .product-price{

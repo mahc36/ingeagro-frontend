@@ -17,6 +17,7 @@ export class ProductService {
   private getAllProductsBySellerIdUrl : string = `${environment.apiURL}/product/getBySellerId`;
   private getAllProductsUrl : string = `${environment.apiURL}/product/findAll`;
   private getProductByIdUrl: string = `${environment.apiURL}/product/findById`;
+  private removeProductByIdUrl: string = `${environment.apiURL}/product/remove`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -44,5 +45,8 @@ export class ProductService {
     return this.httpClient.get<Product>(`${this.getProductByIdUrl}?productId=${productId}`)
   }
 
+  public removeProduct(productId: number) : Observable<Product> {
+    return  this.httpClient.post(this.removeProductByIdUrl, {productId});
+  }
 
 }
