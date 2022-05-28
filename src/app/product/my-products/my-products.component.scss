@@ -38,6 +38,12 @@
     .remaining-qty{
       display: none;
     }
+
+    .add-to-cart{
+      pointer-events: none;
+      cursor: not-allowed;
+      display: none;
+    }
   }
 }
 
